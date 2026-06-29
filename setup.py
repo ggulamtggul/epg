@@ -67,12 +67,8 @@ try:
     with F.app.app_context():
         F.db.engines[EPG_DATA_DB_BIND_KEY] = P.db
    
-    if os.path.exists(os.path.join(os.path.dirname(__file__), 'files', 'credential.json')) == False:
-        P.set_module_list([ModuleXml])
-        del P.menu['list'][1]
-    else:
-        from .mod_maker import ModuleMaker
-        P.set_module_list([ModuleXml, ModuleMaker])
+    from .mod_maker import ModuleMaker
+    P.set_module_list([ModuleXml, ModuleMaker])
 except Exception as e:
     P.logger.error(f'Exception:{str(e)}')
     P.logger.error(traceback.format_exc())
