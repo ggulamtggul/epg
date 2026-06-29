@@ -50,7 +50,7 @@ class Task(object):
                 
                 # 파일이 없을 때만(최초 실행 등) 다운로드 시도
                 logger.info(f"{time1} {time2} epg_data.db 다운로드 시작")
-                urllib.request.urlretrieve("https://github.com/flaskfarm/.epg.db/raw/main/epg_data.db", data_db_file) 
+                urllib.request.urlretrieve("https://github.com/ggulamtggul/epg/raw/main/epg_data.db", data_db_file) 
                 logger.info(f"{time1} {time2} epg_data.db 다운로드 완료")
                 P.ModelSetting.set('epg_data_updated_time', time2)
             else:
