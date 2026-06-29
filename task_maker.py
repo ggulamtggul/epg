@@ -77,6 +77,7 @@ class Task(object):
                 else:
                     ch = ModelEpgChannel()
                     ch.name = name
+                    ch.aka = name
                     ch.created_time = datetime.now()
                     db_channels[name] = ch
                 

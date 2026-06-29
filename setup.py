@@ -76,3 +76,5 @@ except Exception as e:
 import logging
 logger = P.logger
 logger.setLevel(logging.DEBUG)
+for handler in logger.handlers:
+    handler.setLevel(logging.DEBUG)
