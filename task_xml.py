@@ -190,15 +190,23 @@ class Task(object):
                 root = ET.Element('tv')
                 root.set('generator-info-name', F.SystemModelSetting.get('ddns'))
                 for idx, channel in enumerate(channel_list):
-                    if channel.category == '지상파' and channel.name not in ['KBS1', 'KBS2', 'MBC', 'SBS', 'EBS1', 'EBS2', 'OBS 경인TV']:
-                        continue
-
                     channel_tag = ET.SubElement(root, 'channel') 
                     channel_tag.set('id', channel.name)
-                    icon_tag = ET.SubElement(channel_tag, 'icon')
-                    icon_tag.set('src', channel.icon)
-                    display_name_tag = ET.SubElement(channel_tag, 'display-name') 
-                    display_name_tag.text = channel.name
+                    
+                    if channel.icon:
+                        icon_tag = ET.SubElement(channel_tag, 'icon')
+                        icon_tag.set('src', channel.icon)
+                    
+                    display_names = []
+                    if channel.aka:
+                        display_names = [x.strip() for x in channel.aka.splitlines() if x.strip()]
+                    if not display_names:
+                        display_names = [channel.name]
+                        
+                    for dn in display_names:
+                        display_name_tag = ET.SubElement(channel_tag, 'display-name') 
+                        display_name_tag.text = dn
+                        
                     display_name_tag = ET.SubElement(channel_tag, 'display-number') 
                     display_name_tag.text = str(idx+1)
                 for channel in channel_list:
