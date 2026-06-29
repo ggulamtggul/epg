@@ -154,6 +154,8 @@ class Task(object):
                     if channel.match_epg_name == '':
                         continue
                     epg_entity = ModelEpgChannel.get_by_name(channel.match_epg_name)
+                    if epg_entity is None:
+                        epg_entity = ModelEpgChannel.get_by_prefer(channel.match_epg_name)
                     channel_tag = ET.SubElement(root, 'channel') 
                     channel_tag.set('id', '%s' % channel.id)
                     
@@ -169,6 +171,8 @@ class Task(object):
 
                 for channel in channel_list:
                     epg_entity = ModelEpgChannel.get_by_name(channel.match_epg_name)
+                    if epg_entity is None:
+                        epg_entity = ModelEpgChannel.get_by_prefer(channel.match_epg_name)
                     if epg_entity is None:
                         epg_entity = ModelEpgChannel.get_by_prefer(channel.scan_name)
                     if epg_entity is None:
