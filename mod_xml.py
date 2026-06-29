@@ -15,6 +15,7 @@ class ModuleXml(PluginModuleBase):
             f'{self.name}_updated_alive' : '',
             f'{self.name}_updated_alive_all' : '',
             f'{self.name}_updated_hdhomerun' : '',
+            f'{self.name}_updated_all' : '',
             f'{self.name}_data_updated_time' : '',
         }
 
@@ -25,7 +26,7 @@ class ModuleXml(PluginModuleBase):
             arg['is_include'] = F.scheduler.is_include(self.get_scheduler_name())
             arg['is_running'] = F.scheduler.is_running(self.get_scheduler_name())
             if page == 'setting':
-                for tmp in ['tvheadend', 'alive', 'hdhomerun', 'alive_all']:
+                for tmp in ['tvheadend', 'alive', 'hdhomerun', 'alive_all', 'all']:
                     arg[tmp] = ToolUtil.make_apikey_url(f'/{P.package_name}/api/{self.name}/{tmp}')
             return render_template(f'{self.P.package_name}_{self.name}_{page}.html', arg=arg)
         except Exception as e:
@@ -72,6 +73,7 @@ class ModuleXml(PluginModuleBase):
         self.task_interface('alive_all', 'scheduler').join()
         self.task_interface('hdhomerun', 'scheduler').join()
         self.task_interface('tvheadend', 'scheduler').join()
+        self.task_interface('all', 'scheduler').join()
 
     #########################################################
 

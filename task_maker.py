@@ -40,7 +40,7 @@ class Task(object):
                 P.ModelSettingDATA.set('updated_time', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 from .task_xml import Task as TaskXml
                 TaskXml.make_xml('all', no_update=True)
-                Task.upload()
+                # Task.upload()
                 
             logger.info("EPG MAKER end..")
 
