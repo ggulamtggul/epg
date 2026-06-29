@@ -67,19 +67,19 @@ class Task(object):
                     continue
                 
                 display_name_node = channel_node.find('display-name')
-                name = display_name_node.text if display_name_node is not None else channel_id
+                display_name = display_name_node.text if display_name_node is not None else channel_id
                 
                 icon_node = channel_node.find('icon')
                 icon_src = icon_node.get('src') if icon_node is not None else ""
                 
-                if name in db_channels:
-                    ch = db_channels[name]
+                if channel_id in db_channels:
+                    ch = db_channels[channel_id]
                 else:
                     ch = ModelEpgChannel()
-                    ch.name = name
-                    ch.aka = name
+                    ch.name = channel_id
+                    ch.aka = f"{channel_id}\n{display_name}"
                     ch.created_time = datetime.now()
-                    db_channels[name] = ch
+                    db_channels[channel_id] = ch
                 
                 ch.icon = icon_src
                 ch.update_time = datetime.now()
